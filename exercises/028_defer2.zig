@@ -4,7 +4,8 @@
 //
 const std = @import("std");
 
-pub fn main() void {
+pub fn main() void
+{
     const animals = [_]u8{ 'g', 'c', 'd', 'd', 'g', 'z' };
 
     for (animals) |a| printAnimal(a);
@@ -15,20 +16,24 @@ pub fn main() void {
 // This function is _supposed_ to print an animal name in parentheses
 // like "(Goat) ", but we somehow need to print the end parenthesis
 // even though this function can return in four different places!
-fn printAnimal(animal: u8) void {
+fn printAnimal(animal: u8) void
+{
     std.debug.print("(", .{});
 
-    std.debug.print(") ", .{}); // <---- how?!
+    defer std.debug.print(") ", .{}); // <---- how?!
 
-    if (animal == 'g') {
+    if (animal == 'g')
+    {
         std.debug.print("Goat", .{});
         return;
     }
-    if (animal == 'c') {
+    if (animal == 'c')
+    {
         std.debug.print("Cat", .{});
         return;
     }
-    if (animal == 'd') {
+    if (animal == 'd')
+    {
         std.debug.print("Dog", .{});
         return;
     }

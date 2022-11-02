@@ -19,7 +19,8 @@ var counter: u32 = 0;
 
 const MyErr = error{ GetFail, IncFail };
 
-pub fn main() void {
+pub fn main() void
+{
     // We simply quit the entire program if we fail to get a number:
     var a: u32 = makeNumber() catch return;
     var b: u32 = makeNumber() catch return;
@@ -27,12 +28,13 @@ pub fn main() void {
     std.debug.print("Numbers: {}, {}\n", .{ a, b });
 }
 
-fn makeNumber() MyErr!u32 {
+fn makeNumber() MyErr!u32
+{
     std.debug.print("Getting number...", .{});
 
     // Please make the "failed" message print ONLY if the makeNumber()
     // function exits with an error:
-    std.debug.print("failed!\n", .{});
+    errdefer std.debug.print("failed!\n", .{});
 
     var num = try getNumber(); // <-- This could fail!
 
@@ -43,12 +45,14 @@ fn makeNumber() MyErr!u32 {
     return num;
 }
 
-fn getNumber() MyErr!u32 {
+fn getNumber() MyErr!u32
+{
     // I _could_ fail...but I don't!
     return 4;
 }
 
-fn increaseNumber(n: u32) MyErr!u32 {
+fn increaseNumber(n: u32) MyErr!u32
+{
     // I fail after the first time you run me!
     if (counter > 0) return MyErr.IncFail;
 
