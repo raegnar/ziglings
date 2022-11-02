@@ -17,11 +17,13 @@
 //
 const std = @import("std");
 
-pub fn main() void {
-    var n: u32 = 2;
+pub fn main() void 
+{
+    var n : u32 = 2;
 
     // Please use a condition that is true UNTIL "n" reaches 1024:
-    while (???) {
+    while (n < 1024)
+    {
         // Print the current number
         std.debug.print("{} ", .{n});
 
