@@ -5,12 +5,13 @@
 //
 const std = @import("std");
 
-pub fn main() void {
+pub fn main() void 
+{
     var discount = true;
 
     // Please use an if...else expression to set "price".
     // If discount is true, the price should be $17, otherwise $20:
-    var price: u8 = if ???;
+    var price : u8 = if (discount == true) 17 else 20;
 
     std.debug.print("With the discount, the price is ${}.\n", .{price});
 }

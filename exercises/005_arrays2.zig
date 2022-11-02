@@ -18,19 +18,20 @@
 //
 const std = @import("std");
 
-pub fn main() void {
+pub fn main() void
+{
     const le = [_]u8{ 1, 3 };
     const et = [_]u8{ 3, 7 };
 
     // (Problem 1)
     // Please set this array concatenating the two arrays above.
     // It should result in: 1 3 3 7
-    const leet = ???;
+    const leet = le ++ et;
 
     // (Problem 2)
     // Please set this array using repetition.
     // It should result in: 1 0 0 1 1 0 0 1 1 0 0 1
-    const bit_pattern = [_]u8{ ??? } ** 3;
+    const bit_pattern = [_]u8{ 1,0,0,1 } ** 3;
 
     // Okay, that's all of the problems. Let's see the results.
     //
@@ -44,13 +45,15 @@ pub fn main() void {
     //
     std.debug.print("LEET: ", .{});
 
-    for (leet) |n| {
+    for (leet) |n| 
+    {
         std.debug.print("{}", .{n});
     }
 
     std.debug.print(", Bits: ", .{});
 
-    for (bit_pattern) |n| {
+    for (bit_pattern) |n| 
+    {
         std.debug.print("{}", .{n});
     }
 

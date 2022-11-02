@@ -9,7 +9,8 @@
 //
 const std = @import("std");
 
-pub fn main() void {
+pub fn main() void 
+{
     // What is this nonsense? :-)
     const letters = "YZhifg";
 
@@ -19,12 +20,12 @@ pub fn main() void {
     // the idiomatic type to use for array indexing.
     //
     // There IS a problem on this line, but 'usize' isn't it.
-    const x: usize = 1;
+    var x : usize = 1;
 
     // Note: When you want to declare memory (an array in this
     // case) without putting anything in it, you can set it to
     // 'undefined'. There is no problem on this line.
-    var lang: [3]u8 = undefined;
+    var lang : [3]u8 = undefined;
 
     // The following lines attempt to put 'Z', 'i', and 'g' into the
     // 'lang' array we just created by indexing the array
@@ -33,10 +34,10 @@ pub fn main() void {
     lang[0] = letters[x];
 
     x = 3;
-    lang[???] = letters[x];
+    lang[1] = letters[x];
 
-    x = ???;
-    lang[2] = letters[???];
+    x = letters.len-1;
+    lang[2] = letters[x];
 
     // We want to "Program in Zig!" of course:
     std.debug.print("Program in {s}!\n", .{lang});
