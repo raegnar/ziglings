@@ -8,25 +8,29 @@
 //
 const std = @import("std");
 
-const Class = enum {
+const Class = enum
+{
     wizard,
     thief,
     bard,
     warrior,
 };
 
-const Character = struct {
+const Character = struct
+{
     class: Class,
     gold: u32,
     health: u8,
     experience: u32,
 };
 
-pub fn main() void {
+pub fn main() void
+{
     var chars: [2]Character = undefined;
 
     // Glorp the Wise
-    chars[0] = Character{
+    chars[0] = Character
+    {
         .class = Class.wizard,
         .gold = 20,
         .health = 100,
@@ -42,6 +46,15 @@ pub fn main() void {
     //
     // Feel free to run this program without adding Zump. What does
     // it do and why?
+
+    // Zump the Loud
+    chars[1] = Character
+    {
+        .class = Class.bard,
+        .gold = 10,
+        .health = 100,
+        .experience = 20,
+    };
 
     // Printing all RPG characters in a loop:
     for (chars) |c, num| {

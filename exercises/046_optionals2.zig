@@ -19,13 +19,15 @@
 //
 const std = @import("std");
 
-const Elephant = struct {
-    letter: u8,
-    tail: *Elephant = null, // Hmm... tail needs something...
-    visited: bool = false,
+const Elephant = struct
+{
+    letter  :   u8,
+    tail    : ?*Elephant = null, // Hmm... tail needs something...
+    visited :   bool = false,
 };
 
-pub fn main() void {
+pub fn main() void
+{
     var elephantA = Elephant{ .letter = 'A' };
     var elephantB = Elephant{ .letter = 'B' };
     var elephantC = Elephant{ .letter = 'C' };
@@ -41,17 +43,19 @@ pub fn main() void {
 
 // This function visits all elephants once, starting with the
 // first elephant and following the tails to the next elephant.
-fn visitElephants(first_elephant: *Elephant) void {
+fn visitElephants(first_elephant: *Elephant) void
+{
     var e = first_elephant;
 
-    while (!e.visited) {
+    while (!e.visited)
+    {
         std.debug.print("Elephant {u}. ", .{e.letter});
         e.visited = true;
 
         // We should stop once we encounter a tail that
         // does NOT point to another element. What can
         // we put here to make that happen?
-        if (e.tail == null) ???;
+        if (e.tail == null) return;
 
         e = e.tail.?;
     }

@@ -34,14 +34,16 @@
 //
 const std = @import("std");
 
-const Class = enum {
+const Class = enum
+{
     wizard,
     thief,
     bard,
     warrior,
 };
 
-const Character = struct {
+const Character = struct
+{
     class: Class,
     gold: u32,
     health: u8 = 100, // You can provide default values
@@ -52,14 +54,17 @@ const Character = struct {
     mentor: ?*Character = null,
 };
 
-pub fn main() void {
-    var mighty_krodor = Character{
+pub fn main() void
+{
+    var mighty_krodor = Character
+    {
         .class = Class.wizard,
         .gold = 10000,
         .experience = 2340,
     };
 
-    var glorp = Character{ // Glorp!
+    var glorp = Character // Glorp!
+    {
         .class = Class.wizard,
         .gold = 10,
         .experience = 20,
@@ -68,7 +73,7 @@ pub fn main() void {
 
     // FIX ME!
     // Please pass Glorp to printCharacter():
-    printCharacter(???);
+    printCharacter(&glorp);
 }
 
 // Note how this function's "c" parameter is a pointer to a Character struct.

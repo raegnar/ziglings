@@ -13,8 +13,9 @@
 //
 const std = @import("std");
 
-pub fn main() void {
-    var num: u8 = 1;
+pub fn main() void
+{
+    var num : u8 = 1;
     var more_nums = [_]u8{ 1, 1, 1, 1 };
 
     // Let's pass a reference to num to our function and print it:
@@ -27,7 +28,8 @@ pub fn main() void {
 
     // And print the array:
     std.debug.print("more_nums: ", .{});
-    for (more_nums) |n| {
+    for (more_nums) |n|
+    {
         std.debug.print("{} ", .{n});
     }
 
@@ -36,6 +38,7 @@ pub fn main() void {
 
 // This function should take a reference to a u8 value and set it
 // to 5.
-fn makeFive(x: *u8) void {
-    ??? = 5; // fix me!
+fn makeFive(x : *u8) void
+{
+    x.* = 5; // fix me!
 }
