@@ -20,10 +20,12 @@
 const std = @import("std");
 
 // Please complete the enum!
-const Ops = enum { ??? };
+const Ops = enum { inc, dec, pow };
 
-pub fn main() void {
-    const operations = [_]Ops{
+pub fn main() void
+{
+    const operations = [_]Ops
+    {
         Ops.inc,
         Ops.inc,
         Ops.inc,
@@ -34,7 +36,8 @@ pub fn main() void {
 
     var current_value: u32 = 0;
 
-    for (operations) |op| {
+    for (operations) |op|
+    {
         switch (op) {
             Ops.inc => {
                 current_value += 1;
