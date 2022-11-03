@@ -4,32 +4,38 @@
 //
 const std = @import("std");
 
-const Elephant = struct {
-    letter: u8,
-    tail: ?*Elephant = null,
-    visited: bool = false,
+const Elephant = struct
+{
+    letter  : u8,
+    tail    : ?*Elephant = null,
+    visited : bool = false,
 
     // New Elephant methods!
-    pub fn getTail(self: *Elephant) *Elephant {
+    pub fn getTail(self: *Elephant) *Elephant
+    {
         return self.tail.?; // Remember, this means "orelse unreachable"
     }
 
-    pub fn hasTail(self: *Elephant) bool {
+    pub fn hasTail(self: *Elephant) bool
+    {
         return (self.tail != null);
     }
 
-    pub fn visit(self: *Elephant) void {
+    pub fn visit(self: *Elephant) void
+    {
         self.visited = true;
     }
 
-    pub fn print(self: *Elephant) void {
+    pub fn print(self: *Elephant) void
+    {
         // Prints elephant letter and [v]isited
         var v: u8 = if (self.visited) 'v' else ' ';
         std.debug.print("{u}{u} ", .{ self.letter, v });
     }
 };
 
-pub fn main() void {
+pub fn main() void
+{
     var elephantA = Elephant{ .letter = 'A' };
     var elephantB = Elephant{ .letter = 'B' };
     var elephantC = Elephant{ .letter = 'C' };
@@ -45,17 +51,22 @@ pub fn main() void {
 
 // This function visits all elephants once, starting with the
 // first elephant and following the tails to the next elephant.
-fn visitElephants(first_elephant: *Elephant) void {
+fn visitElephants(first_elephant: *Elephant) void
+{
     var e = first_elephant;
 
-    while (true) {
+    while (true)
+    {
         e.print();
         e.visit();
 
         // This gets the next elephant or stops.
-        if (e.hasTail()) {
-            e = e.???; // Which method do we want here?
-        } else {
+        if (e.hasTail())
+        {
+            e = e.getTail(); // Which method do we want here?
+        }
+        else
+        {
             break;
         }
     }

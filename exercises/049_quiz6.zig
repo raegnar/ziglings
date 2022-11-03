@@ -9,25 +9,37 @@
 //
 const std = @import("std");
 
-const Elephant = struct {
-    letter: u8,
-    tail: ?*Elephant = null,
-    trunk: ?*Elephant = null,
-    visited: bool = false,
+const Elephant = struct
+{
+    letter  : u8,
+    tail    : ?*Elephant = null,
+    trunk   : ?*Elephant = null,
+    visited : bool = false,
 
     // Elephant tail methods!
-    pub fn getTail(self: *Elephant) *Elephant {
+    pub fn getTail(self: *Elephant) *Elephant
+    {
         return self.tail.?; // Remember, this means "orelse unreachable"
     }
 
-    pub fn hasTail(self: *Elephant) bool {
+    pub fn hasTail(self: *Elephant) bool
+    {
         return (self.tail != null);
     }
 
     // Your Elephant trunk methods go here!
     // ---------------------------------------------------
 
-    ???
+    // Elephant Trunk methods!
+    pub fn getTrunk(self: *Elephant) *Elephant
+    {
+        return self.trunk.?; // Remember, this means "orelse unreachable"
+    }
+
+    pub fn hasTrunk(self: *Elephant) bool
+    {
+        return (self.trunk != null);
+    }
 
     // ---------------------------------------------------
 
