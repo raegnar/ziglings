@@ -55,11 +55,12 @@ const print = @import("std").debug.print;
 // As mentioned before, we'll soon understand why these two
 // numbers don't need explicit types. Hang in there!
 const ingredients = 4;
-const foods = 4;
+const foods       = 4;
 
-const Food = struct {
-    name: []const u8,
-    requires: [ingredients]bool,
+const Food = struct
+{
+    name     : []const u8,
+    requires : [ingredients]bool,
 };
 
 //                 Chili  Macaroni  Tomato Sauce  Cheese
@@ -70,26 +71,32 @@ const Food = struct {
 //  Cheesy Chili     x                              x
 // ------------------------------------------------------
 
-const menu: [foods]Food = [_]Food{
-    Food{
+const menu : [foods]Food = [_]Food
+{
+    Food
+    {
         .name = "Mac & Cheese",
         .requires = [ingredients]bool{ false, true, false, true },
     },
-    Food{
+    Food
+    {
         .name = "Chili Mac",
         .requires = [ingredients]bool{ true, true, false, false },
     },
-    Food{
+    Food
+    {
         .name = "Pasta",
         .requires = [ingredients]bool{ false, true, true, false },
     },
-    Food{
+    Food
+    {
         .name = "Cheesy Chili",
         .requires = [ingredients]bool{ true, false, false, true },
     },
 };
 
-pub fn main() void {
+pub fn main() void
+{
     // Welcome to Cafeteria USA! Choose your favorite ingredients
     // and we'll produce a delicious meal.
     //
@@ -103,11 +110,11 @@ pub fn main() void {
     const wanted_ingredients = [_]u8{ 0, 3 }; // Chili, Cheese
 
     // Look at each Food on the menu...
-    const meal = food_loop: for (menu) |food| {
-
+    const meal = food_loop: for (menu) |food|
+    {
         // Now look at each required ingredient for the Food...
-        for (food.requires) |required, required_ingredient| {
-
+        for (food.requires) |required, required_ingredient|
+        {
             // This ingredient isn't required, so skip it.
             if (!required) continue;
 
@@ -115,9 +122,11 @@ pub fn main() void {
             // (Remember that want_it will be the index number of
             // the ingredient based on its position in the
             // required ingredient list for each food.)
-            const found = for (wanted_ingredients) |want_it| {
+            const found = for (wanted_ingredients) |want_it|
+            {
                 if (required_ingredient == want_it) break true;
-            } else false;
+            }
+            else false;
 
             // We did not find this required ingredient, so we
             // can't make this Food. Continue the outer loop.
@@ -128,8 +137,9 @@ pub fn main() void {
         // wanted for this Food.
         //
         // Please return this Food from the loop.
-        break;
-    };
+        break :food_loop food;
+    }
+    else menu[0];
     // ^ Oops! We forgot to return Mac & Cheese as the default
     // Food when the requested ingredients aren't found.
 

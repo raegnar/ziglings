@@ -42,23 +42,26 @@
 //
 const print = @import("std").debug.print;
 
-const Narcissus = struct {
-    me: *Narcissus = undefined,
-    myself: *Narcissus = undefined,
-    echo: void = undefined, // Alas, poor Echo!
+const Narcissus = struct
+{
+    me     : *Narcissus = undefined,
+    myself : *Narcissus = undefined,
+    echo   : void = undefined, // Alas, poor Echo!
 
-    fn fetchTheMostBeautifulType() type {
+    fn fetchTheMostBeautifulType() type
+    {
         return @This();
     }
 };
 
-pub fn main() void {
+pub fn main() void
+{
     var narcissus: Narcissus = Narcissus{};
 
     // Oops! We cannot leave the 'me' and 'myself' fields
     // undefined. Please set them here:
-    narcissus.me = &narcissus;
-    narcissus.??? = ???;
+    narcissus.me     = &narcissus;
+    narcissus.myself = &narcissus;
 
     // This determines a "peer type" from three separate
     // references (they just happen to all be the same object).
@@ -70,7 +73,7 @@ pub fn main() void {
     //
     // The fix for this is very subtle, but it makes a big
     // difference!
-    const Type2 = narcissus.fetchTheMostBeautifulType();
+    const Type2 = Narcissus.fetchTheMostBeautifulType();
 
     // Now we print a pithy statement about Narcissus.
     print("A {s} loves all {s}es. ", .{
@@ -109,15 +112,18 @@ pub fn main() void {
     // Please complete these 'if' statements so that the field
     // name will not be printed if the field is of type 'void'
     // (which is a zero-bit type that takes up no space at all!):
-    if (fields[0].??? != void) {
+    if (fields[0].field_type != void)
+    {
         print(" {s}", .{@typeInfo(Narcissus).Struct.fields[0].name});
     }
 
-    if (fields[1].??? != void) {
+    if (fields[1].field_type != void)
+    {
         print(" {s}", .{@typeInfo(Narcissus).Struct.fields[1].name});
     }
 
-    if (fields[2].??? != void) {
+    if (fields[2].field_type != void)
+    {
         print(" {s}", .{@typeInfo(Narcissus).Struct.fields[2].name});
     }
 
@@ -143,7 +149,8 @@ pub fn main() void {
 //
 // We'll be seeing @typeName again in Exercise 070. For now, you can
 // see that it takes a Type and returns a u8 "string".
-fn maximumNarcissism(myType: anytype) []const u8 {
+fn maximumNarcissism(myType: anytype) []const u8
+{
     // Turn '065_builtins2.Narcissus' into 'Narcissus'
     return @typeName(myType)[14..];
 }
