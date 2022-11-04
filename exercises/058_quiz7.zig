@@ -181,19 +181,22 @@ const f_paths = [_]Path{
 // "trip" out of it. A trip is a series of Places connected by Paths.
 // We use a TripItem union to allow both Places and Paths to be in the
 // same array.
-const TripItem = union(enum) {
-    place: *const Place,
-    path: *const Path,
+const TripItem = union(enum)
+{
+    place : *const Place,
+    path  : *const Path,
 
     // This is a little helper function to print the two different
     // types of item correctly.
-    fn printMe(self: TripItem) void {
-        switch (self) {
+    fn printMe(self: TripItem) void
+    {
+        switch (self)
+        {
             // Oops! The hermit forgot how to capture the union values
             // in a switch statement. Please capture both values as
             // 'p' so the print statements work!
-            .place => print("{s}", .{p.name}),
-            .path => print("--{}->", .{p.dist}),
+            .place => |p| print("{s}", .{p.name}),
+            .path  => |p| print("--{}->", .{p.dist}),
         }
     }
 };
@@ -204,11 +207,12 @@ const TripItem = union(enum) {
 // find a better Path to reach a Place (shorter distance), we update the
 // entry. Entries also serve as a "todo" list which is how we keep
 // track of which paths to explore next.
-const NotebookEntry = struct {
-    place: *const Place,
-    coming_from: ?*const Place,
-    via_path: ?*const Path,
-    dist_to_reach: u16,
+const NotebookEntry = struct
+{
+    place         :  *const Place,
+    coming_from   : ?*const Place,
+    via_path      : ?*const Path,
+    dist_to_reach :   u16,
 };
 
 // +------------------------------------------------+
@@ -223,7 +227,8 @@ const NotebookEntry = struct {
 // |                      ...                       |
 // +---+----------------+----------------+----------+
 //
-const HermitsNotebook = struct {
+const HermitsNotebook = struct
+{
     // Remember the array repetition operator `**`? It is no mere
     // novelty, it's also a great way to assign multiple items in an
     // array without having to list them one by one. Here we use it to
@@ -238,8 +243,10 @@ const HermitsNotebook = struct {
 
     // We'll often want to find an entry by Place. If one is not
     // found, we return null.
-    fn getEntry(self: *HermitsNotebook, place: *const Place) ?*NotebookEntry {
-        for (self.entries) |*entry, i| {
+    fn getEntry(self: *HermitsNotebook, place: *const Place) ?*NotebookEntry
+    {
+        for (self.entries) |*entry, i|
+        {
             if (i >= self.end_of_entries) break;
 
             // Here's where the hermit got stuck. We need to return
@@ -255,7 +262,7 @@ const HermitsNotebook = struct {
             // dereference and optional value "unwrapping" look
             // together. Remember that you return the address with the
             // "&" operator.
-            if (place == entry.*.?.place) return entry;
+            if (place == entry.*.?.place) return &entry.*.?;
             // Try to make your answer this long:__________;
         }
         return null;
@@ -309,7 +316,7 @@ const HermitsNotebook = struct {
     //
     // Looks like the hermit forgot something in the return value of
     // this function. What could that be?
-    fn getTripTo(self: *HermitsNotebook, trip: []?TripItem, dest: *Place) void {
+    fn getTripTo(self: *HermitsNotebook, trip: []?TripItem, dest: *Place) !void {
         // We start at the destination entry.
         const destination_entry = self.getEntry(dest);
 
@@ -385,7 +392,8 @@ pub fn main() void {
     // Get the next entry from the notebook (the first being the
     // "start" entry we just added) until we run out, at which point
     // we'll have checked every reachable Place.
-    while (notebook.hasNextEntry()) {
+    while (notebook.hasNextEntry())
+    {
         var place_entry = notebook.getNextEntry();
 
         // For every Path that leads FROM the current Place, create a
@@ -393,7 +401,8 @@ pub fn main() void {
         // destination Place and the total distance from the start to
         // reach that place. Again, read the comments for the
         // checkNote() method to see how this works.
-        for (place_entry.place.paths) |*path| {
+        for (place_entry.place.paths) |*path|
+        {
             working_note = NotebookEntry{
                 .place = path.to,
                 .coming_from = place_entry.place,
@@ -411,7 +420,8 @@ pub fn main() void {
     // this is the first time we've actually used the destination!
     var trip = [_]?TripItem{null} ** (place_count * 2);
 
-    notebook.getTripTo(trip[0..], destination) catch |err| {
+    notebook.getTripTo(trip[0..], destination) catch |err|
+    {
         print("Oh no! {}\n", .{err});
         return;
     };

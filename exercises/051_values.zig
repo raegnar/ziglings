@@ -22,10 +22,11 @@ const std = @import("std");
 // health, experience) are all values of a particular size. Add them
 // together and you have the size of the struct as a whole.
 
-const Character = struct {
-    gold: u32 = 0,
-    health: u8 = 100,
-    experience: u32 = 0,
+const Character = struct
+{
+    gold       : u32 = 0,
+    health     : u8  = 100,
+    experience : u32 = 0,
 };
 
 // Here we create a character called "the_narrator" that is a constant
@@ -35,8 +36,8 @@ const Character = struct {
 // memory is hard-coded and neither the address nor the value changes.
 
 const the_narrator = Character{
-    .gold = 12,
-    .health = 99,
+    .gold       = 12,
+    .health     = 99,
     .experience = 9000,
 };
 
@@ -59,13 +60,15 @@ var global_wizard = Character{};
 // Our main() function here has no input parameters, but it will have
 // a stack entry (called a "frame").
 
-pub fn main() void {
+pub fn main() void
+{
 
     // Here, the "glorp" character will be allocated on the stack
     // because each instance of glorp is mutable and therefore unique
     // to the invocation of this function.
 
-    var glorp = Character{
+    var glorp = Character
+    {
         .gold = 30,
     };
 
@@ -87,7 +90,7 @@ pub fn main() void {
     // Let's assign the std.debug.print function to a const named
     // "print" so that we can use this new name later!
 
-    const print = ???;
+    const print = std.debug.print;
 
     // Now let's look at assigning and pointing to values in Zig.
     //
@@ -152,13 +155,14 @@ pub fn main() void {
     print("XP before:{}, ", .{glorp.experience});
 
     // Fix 1 of 2 goes here:
-    levelUp(glorp, reward_xp);
+    levelUp(&glorp, reward_xp);
 
     print("after:{}.\n", .{glorp.experience});
 }
 
 // Fix 2 of 2 goes here:
-fn levelUp(character_access: Character, xp: u32) void {
+fn levelUp(character_access : *Character, xp : u32) void
+{
     character_access.experience += xp;
 }
 

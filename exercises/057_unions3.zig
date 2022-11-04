@@ -15,12 +15,14 @@
 //
 const std = @import("std");
 
-const Insect = union(InsectStat) {
-    flowers_visited: u16,
-    still_alive: bool,
+const Insect = union(enum)
+{
+    flowers_visited : u16,
+    still_alive     : bool,
 };
 
-pub fn main() void {
+pub fn main() void
+{
     var ant = Insect{ .still_alive = true };
     var bee = Insect{ .flowers_visited = 17 };
 
@@ -32,9 +34,11 @@ pub fn main() void {
     std.debug.print("\n", .{});
 }
 
-fn printInsect(insect: Insect) void {
-    switch (insect) {
-        .still_alive => |a| std.debug.print("Ant alive is: {}. ", .{a}),
+fn printInsect(insect: Insect) void
+{
+    switch (insect)
+    {
+        .still_alive =>     |a| std.debug.print("Ant alive is: {}. ", .{a}),
         .flowers_visited => |f| std.debug.print("Bee visited {} flowers. ", .{f}),
     }
 }
