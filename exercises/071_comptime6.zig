@@ -22,13 +22,15 @@ const print = @import("std").debug.print;
 
 // Remember Narcissus from exercise 065 where we used builtins
 // for reflection? He's back and loving it.
-const Narcissus = struct {
-    me: *Narcissus = undefined,
-    myself: *Narcissus = undefined,
-    echo: void = undefined,
+const Narcissus = struct
+{
+    me     : *Narcissus = undefined,
+    myself : *Narcissus = undefined,
+    echo   :  void = undefined,
 };
 
-pub fn main() void {
+pub fn main() void
+{
     print("Narcissus has room in his heart for:", .{});
 
     // Last time we examined the Narcissus struct, we had to
@@ -40,8 +42,10 @@ pub fn main() void {
 
     const fields = @typeInfo(Narcissus).Struct.fields;
 
-    ??? {
-        if (field.field_type != void) {
+    inline for (fields) |field|
+    {
+        if (field.field_type != void)
+        {
             print(" {s}", .{field.name});
         }
     }

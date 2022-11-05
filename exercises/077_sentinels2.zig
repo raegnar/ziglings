@@ -36,12 +36,14 @@
 //
 const print = @import("std").debug.print;
 
-const WeirdContainer = struct {
-    data: [*]const u8,
-    length: usize,
+const WeirdContainer = struct
+{
+    data   : [*]const u8,
+    length : usize,
 };
 
-pub fn main() void {
+pub fn main() void
+{
     // WeirdContainer is an awkward way to house a string.
     //
     // Being a many-item pointer (with no sentinel termination),
@@ -50,7 +52,8 @@ pub fn main() void {
     //
     // Luckily, the 'length' field makes it possible to still
     // work with this value.
-    const foo = WeirdContainer{
+    const foo = WeirdContainer
+    {
         .data = "Weird Data!",
         .length = 11,
     };
@@ -60,7 +63,7 @@ pub fn main() void {
     // length... You've actually solved this problem before!
     //
     // Here's a big hint: do you remember how to take a slice?
-    const printable = ???;
+    const printable = foo.data[0..foo.length];
 
     print("{s}\n", .{printable});
 }

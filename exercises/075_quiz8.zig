@@ -11,9 +11,10 @@ const print = @import("std").debug.print;
 
 const TripError = error{ Unreachable, EatenByAGrue };
 
-const Place = struct {
-    name: []const u8,
-    paths: []const Path = undefined,
+const Place = struct
+{
+    name  : []const u8,
+    paths : []const Path = undefined,
 };
 
 var a = Place{ .name = "Archer's Point" };
@@ -29,9 +30,9 @@ var f = Place{ .name = "Fox Pond" };
 const place_count = 6;
 
 const Path = struct {
-    from: *const Place,
-    to: *const Place,
-    dist: u8,
+    from : *const Place,
+    to   : *const Place,
+    dist : u8,
 };
 
 // Okay, so as you may recall, we had to create each Path struct
@@ -48,18 +49,19 @@ const Path = struct {
 // instead.
 //
 // Please fill in the body of this function!
-fn makePath(from: *Place, to: *Place, dist: u8) Path {
-
+fn makePath(from: *Place, to: *Place, dist: u8) Path
+{
+    return Path{ .from = from, .to = to, .dist = dist };
 }
 
 // Using our new function, these path definitions take up considerably less
 // space in our program now!
-const a_paths = [_]Path{makePath(&a, &b, 2)};
+const a_paths = [_]Path{ makePath(&a, &b, 2) };
 const b_paths = [_]Path{ makePath(&b, &a, 2), makePath(&b, &d, 1) };
 const c_paths = [_]Path{ makePath(&c, &d, 3), makePath(&c, &e, 2) };
 const d_paths = [_]Path{ makePath(&d, &b, 1), makePath(&d, &c, 3), makePath(&d, &f, 7) };
 const e_paths = [_]Path{ makePath(&e, &c, 2), makePath(&e, &f, 1) };
-const f_paths = [_]Path{makePath(&f, &d, 7)};
+const f_paths = [_]Path{ makePath(&f, &d, 7) };
 //
 // But is it more readable? That could be argued either way.
 //
@@ -179,10 +181,12 @@ pub fn main() void {
     };
     notebook.checkNote(working_note);
 
-    while (notebook.hasNextEntry()) {
+    while (notebook.hasNextEntry())
+    {
         var place_entry = notebook.getNextEntry();
 
-        for (place_entry.place.paths) |*path| {
+        for (place_entry.place.paths) |*path|
+        {
             working_note = NotebookEntry{
                 .place = path.to,
                 .coming_from = place_entry.place,
@@ -195,7 +199,8 @@ pub fn main() void {
 
     var trip = [_]?TripItem{null} ** (place_count * 2);
 
-    notebook.getTripTo(trip[0..], destination) catch |err| {
+    notebook.getTripTo(trip[0..], destination) catch |err|
+    {
         print("Oh no! {}\n", .{err});
         return;
     };
@@ -203,10 +208,12 @@ pub fn main() void {
     printTrip(trip[0..]);
 }
 
-fn printTrip(trip: []?TripItem) void {
+fn printTrip(trip: []?TripItem) void
+{
     var i: u8 = @intCast(u8, trip.len);
 
-    while (i > 0) {
+    while (i > 0)
+    {
         i -= 1;
         if (trip[i] == null) continue;
         trip[i].?.printMe();

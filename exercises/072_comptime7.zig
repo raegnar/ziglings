@@ -15,7 +15,8 @@
 //
 const print = @import("std").debug.print;
 
-pub fn main() void {
+pub fn main() void
+{
     // Here is a string containing a series of arithmetic
     // operations and single-digit decimal values. Let's call
     // each operation and digit pair an "instruction".
@@ -35,15 +36,16 @@ pub fn main() void {
     // at compile time.
     //
     // Please fix this to loop once per "instruction":
-    ??? (i < instructions.len) : (???) {
-
+    inline while (i < instructions.len) : (i += 3) 
+    {
         // This gets the digit from the "instruction". Can you
         // figure out why we subtract '0' from it?
         comptime var digit = instructions[i + 1] - '0';
 
         // This 'switch' statement contains the actual work done
         // at runtime. At first, this doesn't seem exciting...
-        switch (instructions[i]) {
+        switch (instructions[i])
+        {
             '+' => value += digit,
             '-' => value -= digit,
             '*' => value *= digit,
