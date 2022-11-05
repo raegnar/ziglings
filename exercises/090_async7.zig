@@ -24,18 +24,20 @@
 //
 const print = @import("std").debug.print;
 
-pub fn main() void {
-
+pub fn main() void
+{
     // The main() function can not be async. But we know
     // getBeef() will not suspend with this particular
     // invocation. Please make this okay:
-    var my_beef = getBeef(0);
+    var my_beef = nosuspend getBeef(0);
 
     print("beef? {X}!\n", .{my_beef});
 }
 
-fn getBeef(input: u32) u32 {
-    if (input == 0xDEAD) {
+fn getBeef(input: u32) u32
+{
+    if (input == 0xDEAD)
+    {
         suspend {}
     }
 

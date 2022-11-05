@@ -12,24 +12,27 @@
 //
 const print = @import("std").debug.print;
 
-pub fn main() void {
+pub fn main() void
+{
     print("A", .{});
 
     var frame = async suspendable();
 
-    print("X", .{});
+    print("D", .{});
 
     resume frame;
 
     print("F", .{});
 }
 
-fn suspendable() void {
-    print("X", .{});
+fn suspendable() void
+{
+    print("B", .{});
 
-    suspend {
-        print("X", .{});
+    suspend
+    {
+        print("C", .{});
     }
 
-    print("X", .{});
+    print("E", .{});
 }
