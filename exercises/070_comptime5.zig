@@ -19,44 +19,54 @@ const print = @import("std").debug.print;
 // that Duck and RubberDuck both contain waddle() and quack()
 // methods declared in their namespace (also known as "decls").
 
-const Duck = struct {
-    eggs: u8,
-    loudness: u8,
-    location_x: i32 = 0,
-    location_y: i32 = 0,
+const Duck = struct
+{
+    eggs       : u8,
+    loudness   : u8,
+    location_x : i32 = 0,
+    location_y : i32 = 0,
 
-    fn waddle(self: Duck, x: i16, y: i16) void {
+    fn waddle(self: Duck, x: i16, y: i16) void
+    {
         self.location_x += x;
         self.location_y += y;
     }
 
-    fn quack(self: Duck) void {
-        if (self.loudness < 4) {
+    fn quack(self: Duck) void
+    {
+        if (self.loudness < 4)
+        {
             print("\"Quack.\" ", .{});
-        } else {
+        }
+        else
+        {
             print("\"QUACK!\" ", .{});
         }
     }
 };
 
-const RubberDuck = struct {
-    in_bath: bool = false,
-    location_x: i32 = 0,
-    location_y: i32 = 0,
+const RubberDuck = struct
+{
+    in_bath    : bool = false,
+    location_x : i32  = 0,
+    location_y : i32  = 0,
 
-    fn waddle(self: RubberDuck, x: i16, y: i16) void {
+    fn waddle(self: RubberDuck, x: i16, y: i16) void
+    {
         self.location_x += x;
         self.location_y += y;
     }
 
-    fn quack(self: RubberDuck) void {
+    fn quack(self: RubberDuck) void
+    {
         // Assigning an expression to '_' allows us to safely
         // "use" the value while also ignoring it.
         _ = self;
         print("\"Squeek!\" ", .{});
     }
 
-    fn listen(self: RubberDuck, dev_talk: []const u8) void {
+    fn listen(self: RubberDuck, dev_talk: []const u8) void
+    {
         // Listen to developer talk about programming problem.
         // Silently contemplate problem. Emit helpful sound.
         _ = dev_talk;
@@ -64,16 +74,21 @@ const RubberDuck = struct {
     }
 };
 
-const Duct = struct {
+const Duct = struct
+{
     diameter: u32,
     length: u32,
     galvanized: bool,
     connection: ?*Duct = null,
 
-    fn connect(self: Duct, other: *Duct) !void {
-        if (self.diameter == other.diameter) {
+    fn connect(self: Duct, other: *Duct) !void
+    {
+        if (self.diameter == other.diameter)
+        {
             self.connection = other;
-        } else {
+        }
+        else
+        {
             return DuctError.UnmatchedDiameters;
         }
     }
@@ -81,7 +96,8 @@ const Duct = struct {
 
 const DuctError = error{UnmatchedDiameters};
 
-pub fn main() void {
+pub fn main() void
+{
     // This is a real duck!
     const ducky1 = Duck{
         .eggs = 0,
@@ -111,7 +127,8 @@ pub fn main() void {
 // perform duck typing ("if it walks like a duck and it quacks
 // like a duck, then it must be a duck") to determine if the type
 // is a "duck".
-fn isADuck(possible_duck: anytype) bool {
+fn isADuck(possible_duck: anytype) bool
+{
     // We'll use @hasDecl() to determine if the type has
     // everything needed to be a "duck".
     //
@@ -123,12 +140,13 @@ fn isADuck(possible_duck: anytype) bool {
     // Please make sure MyType has both waddle() and quack()
     // methods:
     const MyType = @TypeOf(possible_duck);
-    const walks_like_duck = ???;
-    const quacks_like_duck = ???;
+    const walks_like_duck  = @hasDecl(MyType, "waddle");
+    const quacks_like_duck = @hasDecl(MyType, "quack" );
 
     const is_duck = walks_like_duck and quacks_like_duck;
 
-    if (is_duck) {
+    if (is_duck)
+    {
         // We also call the quack() method here to prove that Zig
         // allows us to perform duck actions on anything
         // sufficiently duck-like.

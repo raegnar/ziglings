@@ -20,14 +20,16 @@ const print = @import("std").debug.print;
 // This struct is the model of a model boat. We can transform it
 // to any scale we would like: 1:2 is half-size, 1:32 is
 // thirty-two times smaller than the real thing, and so forth.
-const Schooner = struct {
-    name: []const u8,
-    scale: u32 = 1,
-    hull_length: u32 = 143,
-    bowsprit_length: u32 = 34,
-    mainmast_height: u32 = 95,
+const Schooner = struct
+{
+    name            : []const u8,
+    scale           : u32 = 1,
+    hull_length     : u32 = 143,
+    bowsprit_length : u32 = 34,
+    mainmast_height : u32 = 95,
 
-    fn scaleMe(self: *Schooner, comptime scale: u32) void {
+    fn scaleMe(self: *Schooner, comptime scale: u32) void
+    {
         var my_scale = scale;
 
         // We did something neat here: we've anticipated the
@@ -51,7 +53,8 @@ const Schooner = struct {
         self.mainmast_height /= my_scale;
     }
 
-    fn printMe(self: Schooner) void {
+    fn printMe(self: Schooner) void
+    {
         print("{s} (1:{}, {} x {})\n", .{
             self.name,
             self.scale,
@@ -61,15 +64,16 @@ const Schooner = struct {
     }
 };
 
-pub fn main() void {
-    var whale = Schooner{ .name = "Whale" };
-    var shark = Schooner{ .name = "Shark" };
+pub fn main() void
+{
+    var whale  = Schooner{ .name = "Whale" };
+    var shark  = Schooner{ .name = "Shark" };
     var minnow = Schooner{ .name = "Minnow" };
 
     // Hey, we can't just pass this runtime variable as an
     // argument to the scaleMe() method. What would let us do
     // that?
-    var scale: u32 = undefined;
+    comptime var scale: u32 = undefined;
 
     scale = 32; // 1:32 scale
 

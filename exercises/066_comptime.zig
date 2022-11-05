@@ -30,7 +30,8 @@
 //
 const print = @import("std").debug.print;
 
-pub fn main() void {
+pub fn main() void
+{
     // ALL numeric literals in Zig are of type comptime_int or
     // comptime_float. They are of arbitrary size (as big or
     // little as you need).
@@ -43,7 +44,7 @@ pub fn main() void {
     // are inserted at compile time into the executable code. The
     // IDENTIFIERS "const_int" and "const_float" don't exist in
     // our compiled application!
-    const const_int = 12345;
+    const const_int   = 12345;
     const const_float = 987.654;
 
     print("Immutable: {}, {d:.3}; ", .{ const_int, const_float });
@@ -61,12 +62,12 @@ pub fn main() void {
     // values. Therefore, it follows that we just specify numeric
     // types with specific sizes. The comptime numbers will be
     // coerced (if they'll fit!) into your chosen runtime types.
-    var var_int = 12345;
-    var var_float = 987.654;
+    var var_int   : u32 = 12345;
+    var var_float : f32 = 987.654;
 
     // We can change what is stored at the areas set aside for
     // "var_int" and "var_float" in the running compiled program.
-    var_int = 54321;
+    var_int   = 54321;
     var_float = 456.789;
 
     print("Mutable: {}, {d:.3}; ", .{ var_int, var_float });

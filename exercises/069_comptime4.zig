@@ -13,7 +13,8 @@
 //
 const print = @import("std").debug.print;
 
-pub fn main() void {
+pub fn main() void
+{
     // Here we declare arrays of three different types and sizes
     // at compile time from a function call. Neat!
     const s1 = makeSequence(u8, 3);  // creates a [3]u8
@@ -42,11 +43,13 @@ pub fn main() void {
 //     2) Sets the size of the array of type T (which is the
 //        sequence we're creating and returning).
 //
-fn makeSequence(comptime T: type, ??? size: usize) [???]T {
-    var sequence: [???]T = undefined;
-    var i: usize = 0;
+fn makeSequence(comptime T: type, comptime size: usize) [size]T
+{
+    var sequence : [size]T = undefined;
+    var i : usize = 0;
 
-    while (i < size) : (i += 1) {
+    while (i < size) : (i += 1)
+    {
         sequence[i] = @intCast(T, i) + 1;
     }
 
