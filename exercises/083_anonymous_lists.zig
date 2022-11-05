@@ -12,7 +12,8 @@
 //
 const print = @import("std").debug.print;
 
-pub fn main() void {
+pub fn main() void
+{
     // Please make 'hello' a string-like array of u8 WITHOUT
     // changing the value literal.
     //
@@ -20,6 +21,6 @@ pub fn main() void {
     //
     //     = .{'h', 'e', 'l', 'l', 'o'};
     //
-    const hello = .{'h', 'e', 'l', 'l', 'o'};
+    const hello : [5]u8 = .{'h', 'e', 'l', 'l', 'o'};
     print("I say {s}!\n", .{hello});
 }
